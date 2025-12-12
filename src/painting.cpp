@@ -37,10 +37,12 @@ void Painting::paintEvent(QPaintEvent*){
         painter->setPen(Qt::NoPen);
         painter->setBrush(brush);
         if(brushShape=="rect"){
-            painter->drawRect(position.x(), position.y(), streak.strokeSize.width(), streak.strokeSize.height());
+            painter->drawRect(position.x()-streak.strokeSize.width()/2, position.y()-streak.strokeSize.height()/2, 
+                            streak.strokeSize.width(), streak.strokeSize.height());
         }
         else if(brushShape=="circ"){
-            painter->drawEllipse(position.x(), position.y(), streak.strokeSize.width(), streak.strokeSize.height());
+            painter->drawEllipse(position.x()-streak.strokeSize.width()/2, position.y()-streak.strokeSize.height()/2, 
+                            streak.strokeSize.width(), streak.strokeSize.height());
         }
         painter->end();
     }
@@ -84,4 +86,5 @@ void Painting::ColorChanged(QString modifier){
         streak.strokeColor={255,255,255};
     }
 }
+
 
