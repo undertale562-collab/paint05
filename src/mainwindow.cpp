@@ -5,37 +5,21 @@
 MainWindow::MainWindow():
     canvas(new Painting()),
     tools(new ToolBar){
-    QHBoxLayout* mainHlay=new QHBoxLayout(this);
-    QVBoxLayout* rightVlay=new QVBoxLayout(this);
+    QHBoxLayout* Hlay=new QHBoxLayout(this);
+    QVBoxLayout* Vlay=new QVBoxLayout(this);
 
-    canvas->setFixedSize(800,tools->height());
+    canvas->setFixedSize(height(),tools->height());
+    tools->setFixedSize(tools->size());
+    this->setLayout(Vlay);
+    Hlay->addWidget(tools);
+    Hlay->addWidget(canvas);
+    Vlay->addLayout(Hlay);
 
-    this->setLayout(mainHlay);
-    rightVlay->addWidget(tools);
-    rightVlay->addWidget(canvas);
-    mainHlay->addLayout(rightVlay);
+    connect(tools, &ToolBar::ShapeClicked, canvas, &Painting::ShapeChanged);
+    connect(tools, &ToolBar::BrushClicked, canvas, &Painting::BrushChanged);
+    connect(tools, &ToolBar::ColorClicked, canvas, &Painting::ColorChanged);
 }
 
 MainWindow::~MainWindow(){
 
 }
-
-// this->setLayout(mainHlay);
-
-// currentexpression->setReadOnly(true);
-
-// rightVlay->addWidget(currentexpression);
-// rightVlay->addWidget(calcWidget);
-
-// mainHlay->addWidget(historywidget);
-// mainHlay->addLayout(rightVlay);
-
-// const QSize calcSize=calcWidget->size();
-// const QSize expressionsize(calcWidget->width(), 40);
-// const QSize historysize(calcWidget->width(), calcWidget->height()+40);
-// const QSize mainsize(2*calcWidget->width()+60, historysize.height()+20);
-
-// setFixedSize(mainsize);
-// calcWidget->setFixedSize(calcSize);
-// currentexpression->setFixedSize(expressionsize);
-// historywidget->setFixedSize(historysize);
