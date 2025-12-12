@@ -8,7 +8,9 @@ public:
     ToolBar();
     ~ToolBar();
 signals:
-    void ShapeClicked();
-    void BrushClicked();
+    void ShapeClicked(QString);
+    void BrushClicked(QString);
+    void ColorClicked(QString);
 };
+
 
