@@ -1,5 +1,4 @@
 #include "toolbar.h"
-#include "painting.h"
 #include <QGridLayout>
 #include <QPushButton>
 
@@ -17,6 +16,21 @@ ToolBar::ToolBar(){
             QPushButton* button = new QPushButton(texts.takeFirst(), this);
             button->setFixedSize(buttonsize);
             mainLay->addWidget(button, i, k);
+            if(i==0){
+                connect(button, &QPushButton::clicked, [this, button=button](){
+                    emit ShapeClicked(button->text());
+                });
+            }
+            else if(i==1){
+                connect(button, &QPushButton::clicked, [this, button=button](){
+                    emit BrushClicked(button->text());
+                });
+            }
+            else if(i>1){
+                connect(button, &QPushButton::clicked, [this, button=button](){
+                    emit ColorClicked(button->text());
+                });
+            }
         }
     }
 }
@@ -24,11 +38,3 @@ ToolBar::ToolBar(){
 ToolBar::~ToolBar(){
 
 }
-
-// void ToolBar::ShapeClicked(){
-
-// }
-
-// void ToolBar::BrushClicked(){
-
-// }
