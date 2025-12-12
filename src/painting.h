@@ -1,6 +1,9 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QWidget>
+#include <QPixmap>
+#include <QLabel>
+
 #pragma once
 
 struct Stroke{
@@ -20,7 +23,17 @@ protected:
     void mouseReleaseEvent(QMouseEvent*) override;
 private:
     bool mousePressed;
+    QString brushShape="rect";
+    QString figure="";
     QPoint position={0,0};
-    QSize widgetSize;
+    QSize widgetSize={200,200};
     Stroke streak;
+    QPainter* painter;
+    // QPixmap canvas;
+    // QLabel* desk;
+public slots:
+    void BrushChanged(QString);
+    void ShapeChanged(QString);
+    void ColorChanged(QString);
 };
+
