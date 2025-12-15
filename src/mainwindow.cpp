@@ -8,9 +8,10 @@ MainWindow::MainWindow():
     QHBoxLayout* Hlay=new QHBoxLayout(this);
     QVBoxLayout* Vlay=new QVBoxLayout(this);
 
-    canvas->setFixedSize(height(),tools->height());
+    canvas->setFixedSize(width(), height());
     tools->setFixedSize(tools->size());
     this->setLayout(Vlay);
+
     Hlay->addWidget(tools);
     Hlay->addWidget(canvas);
     Vlay->addLayout(Hlay);
@@ -18,6 +19,8 @@ MainWindow::MainWindow():
     connect(tools, &ToolBar::ShapeClicked, canvas, &Painting::ShapeChanged);
     connect(tools, &ToolBar::BrushClicked, canvas, &Painting::BrushChanged);
     connect(tools, &ToolBar::ColorClicked, canvas, &Painting::ColorChanged);
+    connect(tools, &ToolBar::SizeClicked, canvas, &Painting::SizeChanged);
+    connect(tools, &ToolBar::ClearClicked, canvas, &Painting::Desintegrate);
 }
 
 MainWindow::~MainWindow(){
