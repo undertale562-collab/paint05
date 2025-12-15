@@ -69,7 +69,7 @@ void Painting::paintEvent(QPaintEvent*){
     pen.setStyle(Qt::NoPen);
     brush.setStyle(Qt::SolidPattern);
     for (int i=0; i<massive.size(); i++){
-        pen.setColor(streak.strokeColor);
+        pen.setColor(massive[i].color);
         brush.setColor(massive[i].color);
         painter->setBrush(brush);
         if(massive[i].shapeB=="rect"){
@@ -150,9 +150,11 @@ void Painting::SizeChanged(QString modifier){
         }
     }
     else if(modifier=="Thinner"){
-        streak.strokeSize={streak.strokeSize.width()-10, streak.strokeSize.height()};
-        if(streak.strokeSize.width()==0){
+        if(streak.strokeSize.width()<=0){
             streak.strokeSize={1, streak.strokeSize.height()};
+        }
+        else{
+            streak.strokeSize={streak.strokeSize.width()-10, streak.strokeSize.height()};
         }
     }
     if(modifier=="Higher"){
@@ -165,7 +167,7 @@ void Painting::SizeChanged(QString modifier){
     }
     else if(modifier=="Lower"){
         streak.strokeSize={streak.strokeSize.width(), streak.strokeSize.height()-10};
-        if(streak.strokeSize.height()==0){
+        if(streak.strokeSize.height()<=0){
             streak.strokeSize={streak.strokeSize.height(), 1};
         }
     }
@@ -180,6 +182,4 @@ void Painting::Desintegrate(QString modifier){
         streak.erase=true;
     }
 }
-
-
 
