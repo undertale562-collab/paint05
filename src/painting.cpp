@@ -74,7 +74,6 @@ void Painting::paintEvent(QPaintEvent*){
         painter->setBrush(brush);
         if(massive[i].shapeB=="rect"){
             pen.setStyle(Qt::SolidLine);
-            pen.setColor(streak.strokeColor);
             painter->setPen(pen);
             painter->setBrush(Qt::NoBrush);
             painter->drawRect(massive[i].thisonePosition.x()-massive[i].size.width()/2,
@@ -82,7 +81,6 @@ void Painting::paintEvent(QPaintEvent*){
         }
         if(massive[i].shapeB=="circ"){
             pen.setStyle(Qt::SolidLine);
-            pen.setColor(streak.strokeColor);
             painter->setPen(pen);
             painter->setBrush(Qt::NoBrush);
             painter->drawEllipse(massive[i].thisonePosition.x()-massive[i].size.width()/2,
@@ -182,5 +180,6 @@ void Painting::Desintegrate(QString modifier){
         streak.erase=true;
     }
 }
+
 
 
