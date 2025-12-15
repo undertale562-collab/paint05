@@ -35,6 +35,26 @@ void Painting::mouseMoveEvent(QMouseEvent* event){
 
 void Painting::mousePressEvent(QMouseEvent* event){
     mousePressed=true;
+    if(streak.erase){
+        for(int i=0; i<massive.size(); i++){
+            if(event->pos().x()+massive[i].thisonePosition.x()/2 > massive[i].thisonePosition.x() &&
+                event->pos().x()+massive[i].thisonePosition.x()/2 < massive[i].thisonePosition.x()+massive[i].size.width() &&
+                event->pos().y()+massive[i].thisonePosition.y()/2 > massive[i].thisonePosition.y() &&
+                event->pos().y()+massive[i].thisonePosition.y()/2 < massive[i].thisonePosition.y()+massive[i].size.height()){
+                massive.erase(massive.begin()+i);
+                update();
+            }
+        }
+    }
+    else{
+        Thisone piece;
+        piece.thisonePosition=event->pos();
+        piece.color=streak.strokeColor;
+        piece.size=streak.strokeSize;
+        piece.shapeB=brushShape;
+        massive.push_back(piece);
+        update();
+    }
 }
 
 
@@ -46,15 +66,34 @@ void Painting::paintEvent(QPaintEvent*){
     painter=new QPainter(this);
     painter->setPen(Qt::NoPen);
     QBrush brush;
+    QPen pen;
+    pen.setStyle(Qt::NoPen);
     brush.setStyle(Qt::SolidPattern);
     for (int i=0; i<massive.size(); i++){
+        pen.setColor(streak.strokeColor);
         brush.setColor(massive[i].color);
         painter->setBrush(brush);
         if(massive[i].shapeB=="rect"){
+            pen.setStyle(Qt::SolidLine);
+            pen.setColor(streak.strokeColor);
+            painter->setPen(pen);
+            painter->setBrush(Qt::NoBrush);
             painter->drawRect(massive[i].thisonePosition.x()-massive[i].size.width()/2,
                               massive[i].thisonePosition.y()-massive[i].size.height()/2, massive[i].size.width(), massive[i].size.height());
         }
-        else if(massive[i].shapeB=="circ"){
+        if(massive[i].shapeB=="circ"){
+            pen.setStyle(Qt::SolidLine);
+            pen.setColor(streak.strokeColor);
+            painter->setPen(pen);
+            painter->setBrush(Qt::NoBrush);
+            painter->drawEllipse(massive[i].thisonePosition.x()-massive[i].size.width()/2,
+                              massive[i].thisonePosition.y()-massive[i].size.height()/2, massive[i].size.width(), massive[i].size.height());
+        }
+        else if(massive[i].shapeB=="rectB"){
+            painter->drawRect(massive[i].thisonePosition.x()-massive[i].size.width()/2,
+                              massive[i].thisonePosition.y()-massive[i].size.height()/2, massive[i].size.width(), massive[i].size.height());
+        }
+        else if(massive[i].shapeB=="circB"){
             painter->drawEllipse(massive[i].thisonePosition.x()-massive[i].size.width()/2,
                                  massive[i].thisonePosition.y()-massive[i].size.height()/2, massive[i].size.width(), massive[i].size.height());
         }
@@ -63,23 +102,23 @@ void Painting::paintEvent(QPaintEvent*){
 }
 
 void Painting::ShapeChanged(QString modifier){
+    streak.erase=false;
     if(modifier=="Rect"){
-        figure="rect";
+        brushShape="rect";
     }
     else if(modifier=="Circ"){
-        figure="circ";
+        brushShape="circ";
     }
-    brushShape="";
 }
 
 void Painting::BrushChanged(QString modifier){
+    streak.erase=false;
     if(modifier=="RectB"){
-        brushShape="rect";
+        brushShape="rectB";
     }
     else if(modifier=="CircB"){
-        brushShape="circ";
-    }
-    figure="";
+        brushShape="circB";
+    };
 }
 
 
