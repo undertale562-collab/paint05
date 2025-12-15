@@ -1,8 +1,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QWidget>
-#include <QPixmap>
-#include <QLabel>
+#include <QImage>
 
 #pragma once
 
@@ -21,19 +20,19 @@ protected:
     void mouseMoveEvent(QMouseEvent*) override;
     void mousePressEvent(QMouseEvent*) override;
     void mouseReleaseEvent(QMouseEvent*) override;
+    // void drawLineTo(const QPoint& endPoint);
 private:
     bool mousePressed;
     QString brushShape="rect";
     QString figure="";
     QPoint position={0,0};
-    QSize widgetSize={200,200};
     Stroke streak;
     QPainter* painter;
-    // QPixmap canvas;
-    // QLabel* desk;
+    // QImage image;
 public slots:
     void BrushChanged(QString);
     void ShapeChanged(QString);
     void ColorChanged(QString);
 };
+
 
