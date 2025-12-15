@@ -13,10 +13,10 @@ Painting::~Painting(){
 void Painting::mouseMoveEvent(QMouseEvent* event){
     if(streak.erase){
         for(int i=0; i<massive.size(); i++){
-            if(event->pos().x()+massive[i].thisonePosition.x()/2 > massive[i].thisonePosition.x() &&
-                event->pos().x()+massive[i].thisonePosition.x()/2 < massive[i].thisonePosition.x()+massive[i].size.width() &&
-                event->pos().y()+massive[i].thisonePosition.y()/2 > massive[i].thisonePosition.y() &&
-                event->pos().y()+massive[i].thisonePosition.y()/2 < massive[i].thisonePosition.y()+massive[i].size.height()){
+            if(event->pos().x()+massive[i].size.width()/2 > massive[i].thisonePosition.x() &&
+                event->pos().x()+massive[i].size.width()/2 < massive[i].thisonePosition.x()+massive[i].size.width() &&
+                event->pos().y()+massive[i].size.height()/2 > massive[i].thisonePosition.y() &&
+                event->pos().y()+massive[i].size.height()/2 < massive[i].thisonePosition.y()+massive[i].size.height()){
                 massive.erase(massive.begin()+i);
                 update();
             }
@@ -34,13 +34,12 @@ void Painting::mouseMoveEvent(QMouseEvent* event){
 }
 
 void Painting::mousePressEvent(QMouseEvent* event){
-    mousePressed=true;
     if(streak.erase){
         for(int i=0; i<massive.size(); i++){
-            if(event->pos().x()+massive[i].thisonePosition.x()/2 > massive[i].thisonePosition.x() &&
-                event->pos().x()+massive[i].thisonePosition.x()/2 < massive[i].thisonePosition.x()+massive[i].size.width() &&
-                event->pos().y()+massive[i].thisonePosition.y()/2 > massive[i].thisonePosition.y() &&
-                event->pos().y()+massive[i].thisonePosition.y()/2 < massive[i].thisonePosition.y()+massive[i].size.height()){
+            if(event->pos().x()+massive[i].size.width()/2 > massive[i].thisonePosition.x() &&
+                event->pos().x()+massive[i].size.width()/2 < massive[i].thisonePosition.x()+massive[i].size.width() &&
+                event->pos().y()+massive[i].size.height()/2 > massive[i].thisonePosition.y() &&
+                event->pos().y()+massive[i].size.height()/2 < massive[i].thisonePosition.y()+massive[i].size.height()){
                 massive.erase(massive.begin()+i);
                 update();
             }
