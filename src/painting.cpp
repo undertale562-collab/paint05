@@ -3,24 +3,22 @@
 
 Painting::Painting(){
     mousePressed=false;
-    // QHBoxLayout* base=new QHBoxLayout;
-    // desk=new QLabel;
-    // canvas.scaled(widgetSize);
-    // desk->setPixmap(canvas);
-    // base->addWidget(desk);
-    // this->setLayout(base);
+
 }
 
 Painting::~Painting(){
 
 }
 
+// вот здесь то, что писал я
+
+
 void Painting::mouseMoveEvent(QMouseEvent* event){
     position=event->pos();
     update();
 }
 
-void Painting::mousePressEvent(QMouseEvent*){
+void Painting::mousePressEvent(QMouseEvent* event){
     mousePressed=true;
 }
 
@@ -30,8 +28,8 @@ void Painting::mouseReleaseEvent(QMouseEvent*){
 }
 
 void Painting::paintEvent(QPaintEvent*){
+    painter=new QPainter(this);
     if(mousePressed){
-        painter=new QPainter(this);
         QBrush brush;
         brush.setColor(streak.strokeColor);
 
@@ -60,17 +58,8 @@ void Painting::paintEvent(QPaintEvent*){
             painter->drawEllipse(position.x()-streak.strokeSize.width()/2, position.y()-streak.strokeSize.height()/2,
                                  streak.strokeSize.width(), streak.strokeSize.height());
         }
-        painter->end();
     }
-}
-
-void Painting::BrushChanged(QString modifier){
-    if(modifier=="RectB"){
-        brushShape="rect";
-    }
-    else if(modifier=="CircB"){
-        brushShape="circ";
-    }
+    painter->end();
 }
 
 void Painting::ShapeChanged(QString modifier){
@@ -80,7 +69,19 @@ void Painting::ShapeChanged(QString modifier){
     else if(modifier=="Circ"){
         figure="circ";
     }
+    brushShape="";
 }
+
+void Painting::BrushChanged(QString modifier){
+    if(modifier=="RectB"){
+        brushShape="rect";
+    }
+    else if(modifier=="CircB"){
+        brushShape="circ";
+    }
+    figure="";
+}
+
 
 void Painting::ColorChanged(QString modifier){
     if(modifier=="Red"){
@@ -102,6 +103,69 @@ void Painting::ColorChanged(QString modifier){
         streak.strokeColor={255,255,255};
     }
 }
+
+
+// void Painting::mousePressEvent(QMouseEvent *event)
+// {
+//     if (event->button() == Qt::LeftButton) {
+//         position = event->pos();
+//         mousePressed = true;
+//     }
+// }
+
+// // When the mouse moves if the left button is clicked
+// // we call the drawline function which draws a line
+// // from the last position to the current
+// void Painting::mouseMoveEvent(QMouseEvent *event)
+// {
+//     if ((event->buttons() & Qt::LeftButton) && mousePressed)
+//         drawLineTo(event->pos());
+// }
+
+// // If the button is released we set variables to stop drawing
+// void Painting::mouseReleaseEvent(QMouseEvent *event)
+// {
+//     if (event->button() == Qt::LeftButton && mousePressed) {
+//         drawLineTo(event->pos());
+//         mousePressed = false;
+//     }
+// }
+
+// // QPainter provides functions to draw on the widget
+// // The QPaintEvent is sent to widgets that need to
+// // update themselves
+// void Painting::paintEvent(QPaintEvent *event)
+// {
+//     QPainter painter(this);
+
+//     // Returns the rectangle that needs to be updated
+//     QRect dirtyRect = event->rect();
+
+//     // Draws the rectangle where the image needs to
+//     // be updated
+//     painter.drawImage(dirtyRect, image, dirtyRect);
+// }
+
+// void Painting::drawLineTo(const QPoint &endPoint){
+//     // Used to draw on the widget
+//     QPainter painter(&image);
+
+//     // Set the current settings for the pen
+//     painter.setPen(QPen(streak.strokeColor, 30, Qt::SolidLine, Qt::RoundCap,
+//                         Qt::RoundJoin));
+
+//     // Draw a line from the last registered point to the current
+//     painter.drawLine(position, endPoint);
+
+//     int rad = (30 / 2) + 2;
+
+//     // Call to update the rectangular space where we drew
+//     update(QRect(position, endPoint).normalized()
+//                .adjusted(-rad, -rad, +rad, +rad));
+
+//     // Update the last position where we left off drawing
+//     position = endPoint;
+// }
 
 
 
