@@ -23,6 +23,28 @@ class Painting: public QWidget{
 public:
     Painting();
     ~Painting();
+
+    QColor getColor(){
+        return streak.strokeColor;
+    }
+    QSize getSize(){
+        return streak.strokeSize;
+    }
+    bool getErase(){
+        return streak.erase;
+    }
+    bool isHollow(){
+        if(massive.size()==0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    void putInMassive(){
+        Thisone testing;
+        massive.push_back(testing);
+    }
 protected:
     void paintEvent(QPaintEvent*) override;
     void mouseMoveEvent(QMouseEvent*) override;
@@ -30,8 +52,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent*) override;
 private:
     bool mousePressed;
-    QString brushShape="rect";
-    QString figure="";
+    QString brushShape="rectB";
     Stroke streak;
     QPainter* painter;
     std::vector<Thisone> massive={};
