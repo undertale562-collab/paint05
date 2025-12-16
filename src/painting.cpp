@@ -158,7 +158,7 @@ void Painting::SizeChanged(QString modifier){
         }
     }
     if(modifier=="Higher"){
-        if(streak.strokeSize.width()==1){
+        if(streak.strokeSize.height()==1){
             streak.strokeSize={streak.strokeSize.width(), 1};
         }
         else{
@@ -182,4 +182,5 @@ void Painting::Desintegrate(QString modifier){
         streak.erase=true;
     }
 }
+
 
