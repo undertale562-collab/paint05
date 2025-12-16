@@ -150,7 +150,7 @@ void Painting::SizeChanged(QString modifier){
         }
     }
     else if(modifier=="Thinner"){
-        if(streak.strokeSize.width()<=0){
+        if(streak.strokeSize.width()-10<=0){
             streak.strokeSize={1, streak.strokeSize.height()};
         }
         else{
@@ -159,16 +159,18 @@ void Painting::SizeChanged(QString modifier){
     }
     if(modifier=="Higher"){
         if(streak.strokeSize.height()==1){
-            streak.strokeSize={streak.strokeSize.width(), 1};
+            streak.strokeSize={streak.strokeSize.width(), 10};
         }
         else{
             streak.strokeSize={streak.strokeSize.width(), streak.strokeSize.height()+10};
         }
     }
     else if(modifier=="Lower"){
-        streak.strokeSize={streak.strokeSize.width(), streak.strokeSize.height()-10};
-        if(streak.strokeSize.height()<=0){
-            streak.strokeSize={streak.strokeSize.height(), 1};
+        if(streak.strokeSize.height()-10<=0){
+            streak.strokeSize={streak.strokeSize.width(), 1};
+        }
+        else{
+            streak.strokeSize={streak.strokeSize.width(), streak.strokeSize.height()-10};
         }
     }
 }
@@ -182,5 +184,6 @@ void Painting::Desintegrate(QString modifier){
         streak.erase=true;
     }
 }
+
 
 
